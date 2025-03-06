@@ -2,8 +2,7 @@
 
 ## Application Overview
 
-BestFurFriends is a full-featured e-commerce platform for dog products using the PERN stack:
-
+BarkBasket is a full-featured e-commerce platform for dog products using the PERN stack:
 - **PostgreSQL**: Relational database for structured data storage
 - **Express.js**: Backend API framework
 - **React.js**: Frontend user interface library
@@ -137,7 +136,7 @@ CREATE TABLE wishlist_items (
 └── server.js              # Server entry point
 ```
 
-## Frontend Structure (React.js)
+## Frontend Structure (React.js with TypeScript)
 
 ```
 /frontend
@@ -147,66 +146,72 @@ CREATE TABLE wishlist_items (
 ├── src
 │   ├── components
 │   │   ├── ui/            # shadcn/ui components
-│   │   │   ├── button.jsx
-│   │   │   ├── card.jsx
-│   │   │   ├── dialog.jsx
+│   │   │   ├── button.tsx
+│   │   │   ├── card.tsx
+│   │   │   ├── dialog.tsx
 │   │   │   └── ...
 │   │   ├── layout/        # Layout components
-│   │   │   ├── Header.jsx
-│   │   │   ├── Footer.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   └── Navigation.jsx
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── Navigation.tsx
 │   │   ├── products/      # Product components
-│   │   │   ├── ProductCard.jsx
-│   │   │   ├── ProductList.jsx
-│   │   │   ├── ProductDetail.jsx
-│   │   │   ├── ProductFilter.jsx
-│   │   │   └── ProductReviews.jsx
+│   │   │   ├── ProductCard.tsx
+│   │   │   ├── ProductList.tsx
+│   │   │   ├── ProductDetail.tsx
+│   │   │   ├── ProductFilter.tsx
+│   │   │   └── ProductReviews.tsx
 │   │   ├── cart/          # Cart components
-│   │   │   ├── Cart.jsx
-│   │   │   ├── CartItem.jsx
-│   │   │   └── Checkout.jsx
+│   │   │   ├── Cart.tsx
+│   │   │   ├── CartItem.tsx
+│   │   │   └── Checkout.tsx
 │   │   ├── user/          # User account components
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── Profile.jsx
-│   │   │   └── OrderHistory.jsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   ├── Profile.tsx
+│   │   │   └── OrderHistory.tsx
 │   │   └── admin/         # Admin components
-│   │       ├── Dashboard.jsx
-│   │       ├── ProductManagement.jsx
-│   │       ├── OrderManagement.jsx
-│   │       └── UserManagement.jsx
+│   │       ├── Dashboard.tsx
+│   │       ├── ProductManagement.tsx
+│   │       ├── OrderManagement.tsx
+│   │       └── UserManagement.tsx
 │   ├── lib/               # Utility functions
-│   │   ├── utils.js       # Helper functions
-│   │   └── validators.js  # Schema validation with Zod
+│   │   ├── utils.ts       # Helper functions
+│   │   └── validators.ts  # Schema validation with Zod
 │   ├── hooks/             # Custom React hooks
-│   │   ├── useAuth.js
-│   │   ├── useCart.js
-│   │   └── useProducts.js
+│   │   ├── useAuth.ts
+│   │   ├── useCart.ts
+│   │   └── useProducts.ts
 │   ├── store/             # Redux Toolkit store
-│   │   ├── index.js       # Store configuration
+│   │   ├── index.ts       # Store configuration
 │   │   ├── slices/        # Redux slices
-│   │   │   ├── cartSlice.js
-│   │   │   ├── authSlice.js
-│   │   │   └── productSlice.js
+│   │   │   ├── cartSlice.ts
+│   │   │   ├── authSlice.ts
+│   │   │   └── productSlice.ts
 │   ├── services/          # API services
-│   │   ├── api.js         # API communication
-│   │   ├── authService.js # Authentication service
-│   │   ├── productService.js  # Products service
-│   │   └── orderService.js    # Orders service
+│   │   ├── api.ts         # API communication
+│   │   ├── authService.ts # Authentication service
+│   │   ├── productService.ts  # Products service
+│   │   └── orderService.ts    # Orders service
+│   ├── types/             # TypeScript type definitions
+│   │   ├── product.ts     # Product related types
+│   │   ├── user.ts        # User related types
+│   │   ├── order.ts       # Order related types
+│   │   └── api.ts         # API response types
 │   ├── pages/             # Route pages
-│   │   ├── Home.jsx
-│   │   ├── Shop.jsx
-│   │   ├── ProductDetail.jsx
-│   │   ├── Cart.jsx
-│   │   ├── Checkout.jsx
-│   │   ├── OrderConfirmation.jsx
-│   │   ├── Account.jsx
-│   │   ├── About.jsx
-│   │   └── Contact.jsx
-│   ├── app.jsx            # Main application component
-│   ├── index.jsx          # Entry point
-│   └── routes.jsx         # Application routing
+│   │   ├── Home.tsx
+│   │   ├── Shop.tsx
+│   │   ├── ProductDetail.tsx
+│   │   ├── Cart.tsx
+│   │   ├── Checkout.tsx
+│   │   ├── OrderConfirmation.tsx
+│   │   ├── Account.tsx
+│   │   ├── About.tsx
+│   │   └── Contact.tsx
+│   ├── app.tsx            # Main application component
+│   ├── index.tsx          # Entry point
+│   └── routes.tsx         # Application routing
+├── tsconfig.json          # TypeScript configuration
 ├── tailwind.config.js     # TailwindCSS configuration
 ├── components.json        # shadcn/ui configuration
 └── postcss.config.js      # PostCSS configuration
@@ -215,29 +220,24 @@ CREATE TABLE wishlist_items (
 ## Key Features
 
 ### Customer-Facing Features
-
 1. **User Authentication**
-
    - Registration/login with email or social media
    - Password recovery
    - Profile management
 
 2. **Product Browsing**
-
    - Category navigation (Food, Toys, Accessories, Grooming)
    - Basic filtering (by category, price, etc.)
    - Search functionality
    - Featured products display
 
 3. **Product Pages**
-
    - High-quality images with zoom capability
    - Detailed product information (ingredients, suitability, etc.)
    - Customer reviews and ratings
    - Related product suggestions
 
 4. **Shopping Cart & Checkout**
-
    - Add/remove items
    - Quantity adjustments
    - Saved for later items
@@ -253,21 +253,17 @@ CREATE TABLE wishlist_items (
    - Wishlist
 
 ### Admin Features
-
 1. **Dashboard**
-
    - Sales analytics
    - Customer insights
    - Inventory monitoring
 
 2. **Product Management**
-
    - Add/edit/remove products
    - Inventory management
    - Promotions and discounts
 
 3. **Order Management**
-
    - Order processing
    - Status updates
    - Customer communications
@@ -279,7 +275,6 @@ CREATE TABLE wishlist_items (
 ## Technology Stack Details
 
 ### Backend
-
 - **Node.js & Express**: RESTful API development
 - **PostgreSQL**: Relational database
 - **Sequelize**: ORM for database interactions
@@ -289,7 +284,6 @@ CREATE TABLE wishlist_items (
 - **Nodemailer**: Email notifications
 
 ### Frontend
-
 - **React**: UI library
 - **Redux Toolkit**: State management
 - **React Router**: Navigation
@@ -301,9 +295,8 @@ CREATE TABLE wishlist_items (
 - **React Query**: Data fetching and caching
 
 ### Deployment Strategy
-
 - **Vercel**: Frontend React application
-- **Render**: Backend Express API
+- **Render**: Backend Express API 
 - **Cloudinary**: Cloud-based image storage
 - **Neon.tech**: Serverless PostgreSQL database
 - **GitHub**: Version control and CI/CD workflows
@@ -311,7 +304,6 @@ CREATE TABLE wishlist_items (
 ## API Endpoints
 
 ### Authentication Endpoints
-
 ```
 POST /api/auth/register         - Register a new user
 POST /api/auth/login            - User login (returns JWT)
@@ -320,7 +312,6 @@ POST /api/auth/reset-password   - Complete password reset
 ```
 
 ### User Endpoints
-
 ```
 GET    /api/users/profile       - Get current user profile
 PUT    /api/users/profile       - Update user profile
@@ -328,7 +319,6 @@ GET    /api/users/orders        - Get user's order history
 ```
 
 ### Product Endpoints
-
 ```
 GET    /api/products                - Get all products (with filtering and pagination)
 GET    /api/products/featured       - Get featured products
@@ -339,7 +329,6 @@ GET    /api/categories/:id/products - Get products in a category
 ```
 
 ### Review Endpoints
-
 ```
 GET    /api/products/:id/reviews    - Get reviews for a product
 POST   /api/products/:id/reviews    - Add a review for a product
@@ -347,7 +336,6 @@ DELETE /api/reviews/:id             - Delete a user's review
 ```
 
 ### Cart Endpoints
-
 ```
 GET    /api/cart                    - Get user's cart
 POST   /api/cart                    - Add item to cart
@@ -357,15 +345,13 @@ DELETE /api/cart                    - Clear entire cart
 ```
 
 ### Wishlist Endpoints
-
 ```
 GET    /api/wishlist                - Get user's wishlist
-POST   /api/wishlist                - Add item to wishlist
+POST   /api/wishlist                - Add item to wishlist 
 DELETE /api/wishlist/:productId     - Remove item from wishlist
 ```
 
 ### Order Endpoints
-
 ```
 POST   /api/orders                  - Create a new order
 GET    /api/orders/:id              - Get order details
@@ -373,13 +359,11 @@ PUT    /api/orders/:id/cancel       - Cancel an order
 ```
 
 ### Image Upload Endpoint
-
 ```
 POST   /api/upload                  - Upload product image to Cloudinary
 ```
 
 ### Admin Endpoints
-
 ```
 GET    /api/admin/users             - Get all users (admin only)
 PUT    /api/admin/users/:id         - Update user (admin only)
@@ -396,7 +380,6 @@ PUT    /api/admin/orders/:id        - Update order status
 ### Example API Response Structure
 
 **Product Response:**
-
 ```json
 {
   "id": 1,
@@ -422,7 +405,6 @@ PUT    /api/admin/orders/:id        - Update order status
 ```
 
 **Order Response:**
-
 ```json
 {
   "id": 1,
@@ -475,14 +457,11 @@ PUT    /api/admin/orders/:id        - Update order status
 ## Deployment Setup
 
 ### Frontend Deployment (Vercel)
-
 1. **Repository Setup**
-
    - Create a GitHub repository for your project
    - Push your React frontend code to the repository
 
 2. **Vercel Configuration**
-
    - Connect your GitHub account to Vercel
    - Import your repository
    - Configure build settings:
@@ -491,7 +470,6 @@ PUT    /api/admin/orders/:id        - Update order status
      - Install Command: `npm install`
 
 3. **Environment Variables**
-
    - Set up environment variables in Vercel dashboard:
      - `REACT_APP_API_URL`: URL of your backend API on Render
      - `REACT_APP_CLOUDINARY_URL`: Cloudinary configuration
@@ -501,13 +479,10 @@ PUT    /api/admin/orders/:id        - Update order status
    - Configure DNS settings
 
 ### Backend Deployment (Render)
-
 1. **Repository Setup**
-
    - Create a separate repository for your Express backend or use a monorepo approach with clear separation
 
 2. **Render Configuration**
-
    - Create a new Web Service in Render dashboard
    - Connect to your GitHub repository
    - Configure build settings:
@@ -516,7 +491,6 @@ PUT    /api/admin/orders/:id        - Update order status
      - Start Command: `npm start`
 
 3. **Environment Variables**
-
    - Set up environment variables in Render dashboard:
      - `NODE_ENV`: production
      - `DATABASE_URL`: Connection string to your Neon.tech PostgreSQL database
@@ -527,7 +501,6 @@ PUT    /api/admin/orders/:id        - Update order status
      - `FRONTEND_URL`: Vercel deployed URL (for CORS)
 
 4. **Database Setup (Neon.tech)**
-
    - Create a new project in Neon.tech
    - Set up a new database
    - Create tables using the SQL schema provided earlier
@@ -540,7 +513,6 @@ PUT    /api/admin/orders/:id        - Update order status
    - Configure the API in your backend for image uploads
 
 ### CI/CD Workflow
-
 - Both Vercel and Render support automatic deployments on push to your main branch
 - Configure preview deployments for pull requests
 - Set up environment-specific variables for development/staging/production
