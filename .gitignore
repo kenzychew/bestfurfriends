@@ -1,5 +1,6 @@
 # Ignore project documentation
 /project-docs/
+/pics/
 
 # Node modules
 node_modules/

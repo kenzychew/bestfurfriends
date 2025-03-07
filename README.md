@@ -9,6 +9,125 @@ BestFurFriends is a full-featured e-commerce platform for dog products using the
 - **React.js**: Frontend user interface library
 - **Node.js**: JavaScript runtime for the server
 
+## User Stories
+
+### Customer User Stories
+
+#### Authentication & User Profile
+
+1. User Registration
+
+- As a new user, I want to create an account so that I can track my orders and save my information.
+- As a user, I want to register using my email or social media accounts so that I can quickly access the site.
+
+2. User Login
+
+- As a registered user, I want to log in securely so that I can access my account.
+- As a user, I want a "remember me" option so that I don't have to log in every time I visit.
+
+3. Password Management
+
+- As a user, I want to reset my password if I forget it so that I can regain access to my account.
+- As a user, I want to change my password from my profile for security reasons.
+
+4. Profile Management
+
+- As a user, I want to view and edit my profile information so that my shipping and billing details are accurate.
+- As a user, I want to see my order history so that I can track my purchases.
+- As a user, I want to save multiple shipping addresses so that I can easily select them during checkout.
+
+#### Product Browsing
+
+5. Category Navigation
+
+- As a shopper, I want to browse products by category so that I can find items that match my dog's needs.
+- As a shopper, I want to see featured products on the homepage so that I can discover popular items.
+
+6. Product Search & Filtering
+
+- As a shopper, I want to search for products by keyword so that I can find specific items quickly.
+- As a shopper, I want to filter products by price range so that I can find items within my budget.
+- As a shopper, I want to sort products by popularity, price, or rating so that I can make better purchasing decisions.
+
+7. Product Details
+
+- As a shopper, I want to view detailed product information (ingredients, weight, etc.) so that I can make informed decisions.
+- As a shopper, I want to see high-quality product images so that I can examine items before purchasing.
+- As a shopper, I want to read customer reviews of products so that I can understand others' experiences.
+- As a shopper, I want to see related product suggestions so that I can discover complementary items.
+
+#### Shopping Experience
+
+8. Shopping Cart
+
+- As a shopper, I want to add products to my cart so that I can purchase multiple items at once.
+- As a shopper, I want to adjust item quantities in my cart so that I can customize my order.
+- As a shopper, I want to remove items from my cart so that I can change my mind before purchasing.
+- As a shopper, I want my cart to persist between sessions so that I don't lose my selections if I leave the site.
+
+9. Wishlist (optional)
+
+- As a shopper, I want to save products to a wishlist so that I can remember them for future purchase.
+- As a shopper, I want to move items from my wishlist to my cart so that I can easily purchase saved items.
+
+10. Checkout Process
+
+- As a shopper, I want to select from saved addresses or enter a new one during checkout.
+- As a shopper, I want to choose from multiple payment methods so that I can pay in my preferred way.
+- As a shopper, I want to see order summary before finalizing my purchase.
+- As a shopper, I want to receive order confirmation by email so that I have a record of my purchase.
+
+11. Order Tracking
+
+- As a customer, I want to track my order status so that I know when to expect delivery. (optional)
+- As a customer, I want to view my order history so that I can reference past purchases.
+- As a customer, I want to leave reviews for products I've purchased so that I can share my experience.
+
+### Admin User Stories
+
+12. Dashboard & Analytics
+
+- As an admin, I want to view sales analytics so that I can understand business performance.
+- As an admin, I want to see inventory levels so that I can restock items when needed.
+- As an admin, I want to view customer insights so that I can better understand my audience.
+
+13. Product Management
+
+- As an admin, I want to be able to see a list of all products.
+- As an admin, I want to add new products so that I can expand my catalog.
+- As an admin, I want to edit existing products so that I can update information and pricing.
+- As an admin, I want to upload product images so that customers can see what they're buying.
+- As an admin, I want to add products to featured collections so that I can promote specific items.
+
+14. Order Management
+
+- As an admin, I want to view all orders so that I can process them efficiently.
+- As an admin, I want to update order status so that customers know when their items ship.
+- As an admin, I want to add tracking information to orders so that customers can track deliveries. (optional)
+- As an admin, I want to process refunds when necessary so that I can handle customer issues. (optional)
+
+15. User Management
+
+- As an admin, I want to view customer accounts so that I can provide support.
+- As an admin, I want to manage user roles so that I can control access to admin features. (optional)
+
+#### Advanced Features
+
+16. Promotions & Discounts
+
+- As a shopper, I want to apply coupon codes during checkout so that I can receive discounts.
+- As an admin, I want to create time-limited promotions so that I can boost sales.
+
+Customer Service
+
+- As a customer, I want to contact customer service so that I can resolve issues with my order.
+- As an admin, I want to respond to customer inquiries so that I can provide good service.
+
+Notifications
+
+- As a customer, I want to receive notifications about order status changes so that I stay informed.
+- As an admin, I want to be notified of low inventory so that I can restock popular items.
+
 ## Database Schema
 
 ```sql
@@ -124,12 +243,12 @@ CREATE TABLE wishlist_items (
 │   ├── admin.js           # Admin route protection
 │   └── upload.js          # Image upload handling
 ├── routes
-│   ├── auth.js            # Authentication routes
-│   ├── cart.js            # Shopping cart routes
-│   ├── orders.js          # Order management routes
-│   ├── products.js        # Product routes
-│   ├── reviews.js         # Product review routes
-│   └── users.js           # User profile routes
+│   ├── authRoutes.js            # Authentication routes
+│   ├── cartRoutes.js            # Shopping cart routes
+│   ├── orderRoutes.js          # Order management routes
+│   ├── productRoutes.js        # Product routes
+│   ├── reviewRoutes.js         # Product review routes
+│   └── userRoutes.js           # User profile routes
 ├── utils
 │   ├── validators.js      # Input validation
 │   └── helpers.js         # Helper functions
