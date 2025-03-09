@@ -1,5 +1,5 @@
 const { User } = require("../models");
-const { generateToken } = require("../middleware/auth");
+const { generateToken, generateAdminToken } = require("../middleware/auth");
 const { successResponse, errorResponse } = require("../utils/helpers");
 
 //* User authentication
@@ -156,9 +156,55 @@ const resetPassword = async (req, res) => {
   }
 };
 
+// Authenticates an admin user and returns a special admin JWT token
+// Verifies credentials and admin status
+// POST /api/auth/admin/login
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Find user by email
+    const user = await User.findOne({ where: { email } });
+
+    // Enhanced security: Don't reveal if it's a credential issue or admin rights issue
+    if (!user || !user.is_admin) {
+      return res.status(401).json(errorResponse("Invalid admin credentials"));
+    }
+
+    // Verify password
+    const isPasswordValid = await user.verifyPassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json(errorResponse("Invalid admin credentials"));
+    }
+
+    // Generate admin-specific JWT token
+    const token = generateAdminToken(user);
+
+    res.status(200).json(
+      successResponse("Admin login successful", {
+        token,
+        user: {
+          id: user.user_id,
+          email: user.email,
+          firstName: user.first_name,
+          lastName: user.last_name,
+          isAdmin: user.is_admin,
+          role: "admin",
+        },
+      })
+    );
+  } catch (error) {
+    console.error("Admin login error:", error);
+    res
+      .status(500)
+      .json(errorResponse("Login failed. Please try again later."));
+  }
+};
+
 module.exports = {
   register,
   login,
   forgotPassword,
   resetPassword,
+  adminLogin,
 };
