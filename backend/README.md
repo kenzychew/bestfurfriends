@@ -28,6 +28,42 @@ npm install
 npm run dev
 ```
 
+## Simplified Checkout Flow
+
+The current implementation uses a simplified checkout flow without payment processing:
+
+### Features
+
+- Orders are created and stored in the database
+- Orders are immediately marked as "confirmed" (skipping payment processing)
+- The full order lifecycle is supported (confirm, cancel, track)
+- All order items and details are tracked
+
+### Order Statuses
+
+- `confirmed`: Order has been placed and confirmed (default in simplified flow)
+- `processing`: Order is being processed
+- `shipped`: Order has been shipped
+- `delivered`: Order has been delivered
+- `cancelled`: Order has been cancelled
+- `pending_payment`: Reserved for future payment implementation
+
+### Adding Payment Processing Later
+
+When ready to implement payment processing:
+
+1. Uncomment the Stripe integration in `orderController.js`
+2. Modify the `createOrder` function to set orders to `pending_payment` status initially
+3. Use the existing `confirmOrder` endpoint to change status after successful payment
+
+### API Endpoints
+
+- `POST /api/orders`: Create a new order
+- `GET /api/orders`: Get all orders for the current user
+- `GET /api/orders/:id`: Get details for a specific order
+- `PUT /api/orders/:id/cancel`: Cancel an order
+- `PUT /api/orders/:id/confirm`: Confirm an order (for future payment implementation)
+
 ## API Documentation
 
 The API follows RESTful principles and provides endpoints for user authentication, product management, cart functionality, orders, and more.

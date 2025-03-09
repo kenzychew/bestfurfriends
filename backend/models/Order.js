@@ -22,7 +22,17 @@ const Order = sequelize.define(
       allowNull: false,
       defaultValue: "pending",
       validate: {
-        isIn: [["pending", "processing", "shipped", "delivered", "cancelled"]],
+        isIn: [
+          [
+            "pending",
+            "confirmed",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled",
+            "pending_payment",
+          ],
+        ],
       },
     },
     total_amount: {

@@ -5,7 +5,8 @@ const {
   formatModelResponse,
 } = require("../utils/helpers");
 const { sequelize } = require("../config/db");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+// Kept the Stripe import for future use, commented out for now
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 //* Order Processing
 // Creates a new order with items from cart or directly provided items
@@ -22,7 +23,7 @@ const createOrder = async (req, res) => {
       billing_address,
       payment_method,
       items = [],
-      payment_intent_id,
+      // Remove payment_intent_id since we're not using Stripe for now
     } = req.body;
     const userId = req.user.user_id;
 
@@ -144,7 +145,7 @@ const createOrder = async (req, res) => {
     // Round total amount to 2 decimal places
     totalAmount = parseFloat(totalAmount.toFixed(2));
 
-    // Create the order
+    // Create the order - set status to "confirmed" for the simplified flow
     const order = await Order.create(
       {
         user_id: userId,
@@ -152,7 +153,7 @@ const createOrder = async (req, res) => {
         shipping_address,
         billing_address,
         payment_method,
-        status: "pending",
+        status: "confirmed", // Changed from "pending" to "confirmed" for simplified checkout
       },
       { transaction }
     );
@@ -168,14 +169,9 @@ const createOrder = async (req, res) => {
       );
     }
 
-    // If payment was processed with Stripe and we have a payment intent ID
-    if (payment_method === "stripe" && payment_intent_id) {
-      await stripe.paymentIntents.update(payment_intent_id, {
-        metadata: {
-          order_id: order.order_id,
-        },
-      });
-    }
+    // Remove Stripe payment processing code
+    // When reimplementing payment later, we'll set status to "pending_payment"
+    // and only change to "confirmed" after successful payment
 
     // Clear the user's cart if items weren't explicitly provided
     if (items.length === 0) {
@@ -262,8 +258,109 @@ const getOrderById = async (req, res) => {
   }
 };
 
-// Cancels an existing order if it's in pending or processing status
-// Uses a transaction to restore product stock quantities
+// Confirms an order after payment has been processed
+// This will be used when payment processing is implemented later
+// PUT /api/orders/:id/confirm
+const confirmOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user.user_id;
+
+    // Find the order
+    const order = await Order.findOne({
+      where: {
+        order_id: id,
+        user_id: userId,
+      },
+    });
+
+    if (!order) {
+      return res.status(404).json(errorResponse("Order not found"));
+    }
+
+    // Only orders with status "pending_payment" can be confirmed
+    if (order.status !== "pending_payment") {
+      return res
+        .status(400)
+        .json(
+          errorResponse(
+            "Only orders with pending payment status can be confirmed"
+          )
+        );
+    }
+
+    // Update the order status
+    order.status = "confirmed";
+    await order.save();
+
+    res
+      .status(200)
+      .json(
+        successResponse(
+          "Order confirmed successfully",
+          formatModelResponse(order)
+        )
+      );
+  } catch (error) {
+    console.error("Error confirming order:", error);
+    res.status(500).json(errorResponse("Failed to confirm order"));
+  }
+};
+
+// Gets all orders for the current user
+// Includes pagination with limit and offset
+// GET /api/orders
+const getUserOrders = async (req, res) => {
+  try {
+    const userId = req.user.user_id;
+    const { limit = 10, offset = 0, status } = req.query;
+
+    // Prepare query options
+    const options = {
+      where: { user_id: userId },
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      order: [["created_at", "DESC"]],
+      include: [
+        {
+          model: OrderItem,
+          include: [Product],
+        },
+      ],
+    };
+
+    // Add status filter if provided
+    if (status) {
+      options.where.status = status;
+    }
+
+    // Get orders
+    const orders = await Order.findAll(options);
+
+    // Count total orders for pagination
+    const totalOrders = await Order.count({
+      where: options.where,
+    });
+
+    res.status(200).json(
+      successResponse("Orders retrieved successfully", {
+        orders: orders.map((order) => formatModelResponse(order)),
+        pagination: {
+          total: totalOrders,
+          limit: parseInt(limit),
+          offset: parseInt(offset),
+        },
+      })
+    );
+  } catch (error) {
+    console.error("Error retrieving user orders:", error);
+    res.status(500).json(errorResponse("Failed to retrieve orders"));
+  }
+};
+
+// Cancels an order by ID
+// Only cancels orders in 'pending' or 'processing' status
+// Restores stock quantities for all order items
 // PUT /api/orders/:id/cancel
 const cancelOrder = async (req, res) => {
   // Start a transaction
@@ -336,4 +433,6 @@ module.exports = {
   createOrder,
   getOrderById,
   cancelOrder,
+  confirmOrder,
+  getUserOrders,
 };
