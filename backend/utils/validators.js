@@ -61,14 +61,6 @@ const orderValidation = [
   check("payment_method", "Payment method is required").notEmpty(),
 ];
 
-// Rules for admin login
-// Validates email format and ensures password is provided
-// Usage: router.post('/auth/admin/login', adminLoginValidation, validateRequest, adminLogin)
-const adminLoginValidation = [
-  check("email", "Valid admin email is required").isEmail(),
-  check("password", "Admin password is required").notEmpty(),
-];
-
 module.exports = {
   validateRequest,
   registerValidation,
@@ -76,5 +68,4 @@ module.exports = {
   productValidation,
   reviewValidation,
   orderValidation,
-  adminLoginValidation,
 };

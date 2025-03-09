@@ -78,7 +78,6 @@ The API follows RESTful principles and provides endpoints for user authenticatio
 ```
 POST /auth/register         - Register a new user
 POST /auth/login            - User login (returns JWT)
-POST /auth/admin/login      - Secure admin login (returns admin JWT)
 POST /auth/forgot-password  - Initiate password reset
 POST /auth/reset-password   - Complete password reset
 ```
@@ -132,10 +131,8 @@ DELETE /wishlist/:productId     - Remove item from wishlist
 
 ```
 POST   /orders                  - Create a new order
-GET    /orders                  - Get all orders for the current user
 GET    /orders/:id              - Get order details
 PUT    /orders/:id/cancel       - Cancel an order
-PUT    /orders/:id/confirm      - Confirm an order (for future payment implementation)
 ```
 
 ### Admin Endpoints
@@ -159,21 +156,6 @@ The API uses JWT (JSON Web Tokens) for authentication. To access protected endpo
 
 ```
 Authorization: Bearer your_jwt_token
-```
-
-### Admin Authentication
-
-For admin users, a separate, more secure authentication flow is provided:
-
-1. Admins should use the dedicated `/api/auth/admin/login` endpoint
-2. Admin tokens have shorter expiry (8 hours vs 24 hours for regular users)
-3. Admin tokens include additional security claims
-4. All admin routes are protected by the `requireAdmin` middleware
-
-To access admin endpoints, use the admin token in the Authorization header:
-
-```
-Authorization: Bearer your_admin_jwt_token
 ```
 
 ## Error Handling
