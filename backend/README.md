@@ -182,3 +182,51 @@ The API returns consistent error responses with the following format:
   ```bash
   npm test
   ```
+
+## References and Resources
+
+### Core Technologies
+
+- [Node.js](https://nodejs.org/en/docs/) - JavaScript runtime environment
+- [Express](https://expressjs.com/en/api.html) - Web framework for Node.js
+- [PostgreSQL](https://www.postgresql.org/docs/) - Relational database
+
+### ORM and Database
+
+- [Sequelize](https://sequelize.org/master/) - Promise-based ORM for Node.js
+- [Sequelize Associations](https://sequelize.org/master/manual/assocs.html) - Model associations documentation
+- [PostgreSQL Data Types](https://www.postgresql.org/docs/current/datatype.html) - Reference for column data types
+- [PostgreSQL Common Table Expression](https://neon.tech/postgresql/postgresql-tutorial/postgresql-cte) - Reference for CTE
+
+### Authentication & Security
+
+- [JSON Web Tokens](https://jwt.io/introduction/) - Industry standard for secure authentication
+- [Passport.js](http://www.passportjs.org/docs/) - Authentication middleware for Node.js
+- [Passport-JWT](http://www.passportjs.org/packages/passport-jwt/) - JWT authentication strategy
+- [Bcrypt](https://github.com/kelektiv/node.bcrypt.js#readme) - Library for password hashing
+
+### File & Image Handling
+
+- [Cloudinary](https://cloudinary.com/documentation) - Cloud-based image management
+- [Multer](https://github.com/expressjs/multer#readme) - Middleware for handling multipart/form-data
+
+### API Architecture
+
+- [REST API Best Practices](https://restfulapi.net/) - Guidelines for RESTful API design
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) - Standard HTTP response codes
+
+### Testing & Development
+
+- [Postman](https://learning.postman.com/docs/getting-started/introduction/) - API testing tool
+- [Dotenv](https://github.com/motdotla/dotenv#readme) - Environment variable management
+
+### E-commerce Resources
+
+- [Stripe Payment Integration](https://stripe.com/docs/api) - Official Stripe API documentation
+- [Stripe Checkout](https://stripe.com/docs/checkout) - Documentation for implementing Stripe Checkout
+
+### Code Quality & Patterns
+
+- [Express Project Structure](https://expressjs.com/en/guide/routing.html) - Official guide on structuring Express apps
+- [JavaScript Error Handling](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling) - Best practices for handling errors
+- [MVC Pattern](https://developer.mozilla.org/en-US/docs/Glossary/MVC) - Model-View-Controller architectural pattern
