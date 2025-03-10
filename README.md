@@ -261,80 +261,66 @@ CREATE TABLE wishlist_items (
 ```
 /frontend
 ├── public
-│   ├── images/            # Static images
-│   └── favicon.ico
+│   └── images/            # Static images
 ├── src
 │   ├── components
-│   │   ├── ui/            # shadcn/ui components
-│   │   │   ├── button.tsx
-│   │   │   ├── card.tsx
-│   │   │   ├── dialog.tsx
-│   │   │   └── ...
-│   │   ├── layout/        # Layout components
+│   │   ├── ui/            # Core UI components (shadcn/ui)
+│   │   ├── layout/
 │   │   │   ├── Header.tsx
 │   │   │   ├── Footer.tsx
-│   │   │   ├── Sidebar.tsx
-│   │   │   └── Navigation.tsx
-│   │   ├── products/      # Product components
+│   │   │   └── AdminSidebar.tsx    # Admin navigation sidebar
+│   │   ├── products/
 │   │   │   ├── ProductCard.tsx
 │   │   │   ├── ProductList.tsx
-│   │   │   ├── ProductDetail.tsx
-│   │   │   ├── ProductFilter.tsx
-│   │   │   └── ProductReviews.tsx
-│   │   ├── cart/          # Cart components
-│   │   │   ├── Cart.tsx
+│   │   │   └── ProductFilter.tsx
+│   │   ├── cart/
 │   │   │   ├── CartItem.tsx
 │   │   │   └── Checkout.tsx
-│   │   ├── user/          # User account components
-│   │   │   ├── Login.tsx
-│   │   │   ├── Register.tsx
-│   │   │   ├── Profile.tsx
-│   │   │   └── OrderHistory.tsx
-│   │   └── admin/         # Admin components
-│   │       ├── Dashboard.tsx
-│   │       ├── ProductManagement.tsx
-│   │       ├── OrderManagement.tsx
-│   │       └── UserManagement.tsx
-│   ├── lib/               # Utility functions
-│   │   ├── utils.ts       # Helper functions
-│   │   └── validators.ts  # Schema validation with Zod
-│   ├── hooks/             # Custom React hooks
-│   │   ├── useAuth.ts
+│   │   ├── auth/
+│   │   │   ├── LoginForm.tsx
+│   │   │   └── RegisterForm.tsx
+│   │   └── admin/                  # Minimal admin components
+│   │       ├── ProductForm.tsx     # Create/edit products
+│   │       ├── ProductTable.tsx    # List products
+│   │       └── OrderTable.tsx      # View orders
+│   ├── lib/
+│   │   ├── utils.ts
+│   │   └── auth.ts                 # Auth utilities & role checking
+│   ├── hooks/
 │   │   ├── useCart.ts
-│   │   └── useProducts.ts
-│   ├── store/             # Redux Toolkit store
-│   │   ├── index.ts       # Store configuration
-│   │   ├── slices/        # Redux slices
-│   │   │   ├── cartSlice.ts
-│   │   │   ├── authSlice.ts
-│   │   │   └── productSlice.ts
-│   ├── services/          # API services
-│   │   ├── api.ts         # API communication
-│   │   ├── authService.ts # Authentication service
-│   │   ├── productService.ts  # Products service
-│   │   └── orderService.ts    # Orders service
-│   ├── types/             # TypeScript type definitions
-│   │   ├── product.ts     # Product related types
-│   │   ├── user.ts        # User related types
-│   │   ├── order.ts       # Order related types
-│   │   └── api.ts         # API response types
-│   ├── pages/             # Route pages
+│   │   └── useAuth.ts              # Enhanced with role support
+│   ├── services/
+│   │   ├── api.ts
+│   │   ├── authService.ts
+│   │   └── adminService.ts         # Admin-specific API calls
+│   ├── context/
+│   │   ├── CartContext.tsx
+│   │   └── AuthContext.tsx         # With role-based auth
+│   ├── types/
+│   │   ├── product.ts
+│   │   ├── order.ts
+│   │   └── user.ts                 # Include role definitions
+│   ├── pages/
 │   │   ├── Home.tsx
-│   │   ├── Shop.tsx
 │   │   ├── ProductDetail.tsx
 │   │   ├── Cart.tsx
 │   │   ├── Checkout.tsx
 │   │   ├── OrderConfirmation.tsx
+│   │   ├── Login.tsx
+│   │   ├── Register.tsx
 │   │   ├── Account.tsx
-│   │   ├── About.tsx
-│   │   └── Contact.tsx
-│   ├── app.tsx            # Main application component
-│   ├── index.tsx          # Entry point
-│   └── routes.tsx         # Application routing
-├── tsconfig.json          # TypeScript configuration
-├── tailwind.config.js     # TailwindCSS configuration
-├── components.json        # shadcn/ui configuration
-└── postcss.config.js      # PostCSS configuration
+│   │   └── admin/                  # Admin pages
+│   │       ├── Dashboard.tsx       # Simple stats overview
+│   │       ├── Products.tsx        # Product management
+│   │       └── Orders.tsx          # Order management
+│   ├── routes/
+│   │   ├── index.tsx               # Main routing
+│   │   ├── ProtectedRoute.tsx      # Auth protection
+│   │   └── AdminRoute.tsx          # Admin-only protection
+│   ├── app.tsx
+│   └── index.tsx
+├── tsconfig.json
+└── tailwind.config.js
 ```
 
 ## Key Features
